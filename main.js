@@ -38,23 +38,24 @@ function handleDraggableDisc(tower) {
     top_disc.setAttribute("draggable", "true");
     top_disc.classList.add("top-disc");
 
-    top_disc.addEventListener("drag", function (event) {
+    top_disc.ondrag = function () {
         top_disc.classList.add("dragging");
-    });
+    }
 
-    top_disc.addEventListener("dragend", function (event) {
+    top_disc.ondragend = function () {
         top_disc.classList.remove("dragging");
-        handleDraggableDisc(tower);
         const new_tower = top_disc.parentElement;
+        
+        handleDraggableDisc(tower);
         handleDraggableDisc(new_tower);
-    });
+    }
 }
 
 handleDraggableDisc(document.getElementById("tower-1"));
 
 var dropZones = document.querySelectorAll(".drop-zone");
 dropZones.forEach(function (zone) {
-    zone.addEventListener("dragover", function (event) {
+    zone.addEventListener("dragover", function (e) {
         dragging_disc = document.querySelector(".dragging");
         drag_on_zone_top_disc = zone.querySelector(".disc:last-child");
 
@@ -64,8 +65,14 @@ dropZones.forEach(function (zone) {
             }
         }
         
-        event.preventDefault();
-        zone.appendChild(document.querySelector(".dragging"));
+        e.preventDefault();
+    });
+
+    zone.addEventListener("drop", function (e) {
+        e.preventDefault();
+        const dragging_disc = document.querySelector(".dragging");
+        if (!dragging_disc) return;
+        zone.appendChild(dragging_disc);
     });
 });
 
