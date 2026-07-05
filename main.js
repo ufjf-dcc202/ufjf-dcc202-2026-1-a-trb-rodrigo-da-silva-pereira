@@ -1,66 +1,58 @@
 const init_tower = document.getElementById("tower-1");
 
 const levels = 8;
-const disc_width = 150;
-const disc_height = 100;
-const disc_decrement = 10;
-
-const disc_hole_width = 60;
-const disc_hole_height = 40;
-const disc_hole_decrement = 5;
+const tower_level_width = 90;
+const tower_level_height = 100;
+const tower_level_decrement = 8;
 
 for (let i = 0; i < levels; i++) {
-    const disc = document.createElement("span");
-    disc.classList.add("disc");
-    disc.style.width = `${disc_width - i * disc_decrement}px`;
-    disc.style.height = `${disc_height - i * disc_decrement}px`;
+    const tower_level = document.createElement("img");
+    tower_level.classList.add("tower-level");
+    tower_level.src = "/sprites/tower-level.png";
+    tower_level.alt = "Tower Level";
 
-    const disc_hole = document.createElement("span");
-    disc_hole.classList.add("disc-hole");
-    disc_hole.style.width = `${disc_hole_width - i * disc_hole_decrement}px`;
-    disc_hole.style.height = `${disc_hole_height - i * disc_hole_decrement}px`;
+    tower_level.dataset.size = levels - i;
+    tower_level.style.width = `${tower_level_width - i * tower_level_decrement}px`;
 
-    disc.dataset.size = levels - i;
-
-    disc.appendChild(disc_hole);
-    init_tower.appendChild(disc);
+    init_tower.appendChild(tower_level);
 }
 
-function handleDraggableDisc(tower) {
-    const top_disc = tower.querySelector(".disc:last-child");
-    if (!top_disc) return;
+function handleDraggableTowerLevel(tower) {
+    const top_tower_level = tower.querySelector(".tower-level:last-child");
+    console.log(top_tower_level);
+    if (!top_tower_level) return;
 
-    tower.querySelectorAll(".disc:not(:last-child)").forEach(disc => {
-        disc.setAttribute("draggable", "false");
-        disc.classList.remove("top-disc");
+    tower.querySelectorAll(".tower-level:not(:last-child)").forEach(tower_level => {
+        tower_level.setAttribute("draggable", "false");
+        tower_level.classList.remove("top-tower-level");
     });
 
-    top_disc.setAttribute("draggable", "true");
-    top_disc.classList.add("top-disc");
+    top_tower_level.setAttribute("draggable", "true");
+    top_tower_level.classList.add("top-tower-level");
 
-    top_disc.ondrag = function () {
-        top_disc.classList.add("dragging");
+    top_tower_level.ondrag = function () {
+        top_tower_level.classList.add("dragging");
     }
 
-    top_disc.ondragend = function () {
-        top_disc.classList.remove("dragging");
-        const new_tower = top_disc.parentElement;
+    top_tower_level.ondragend = function () {
+        top_tower_level.classList.remove("dragging");
+        const new_tower = top_tower_level.parentElement;
         
-        handleDraggableDisc(tower);
-        handleDraggableDisc(new_tower);
+        handleDraggableTowerLevel(tower);
+        handleDraggableTowerLevel(new_tower);
     }
 }
 
-handleDraggableDisc(document.getElementById("tower-1"));
+handleDraggableTowerLevel(document.getElementById("tower-1"));
 
 var dropZones = document.querySelectorAll(".drop-zone");
 dropZones.forEach(function (zone) {
     zone.addEventListener("dragover", function (e) {
-        dragging_disc = document.querySelector(".dragging");
-        drag_on_zone_top_disc = zone.querySelector(".disc:last-child");
+        dragging_tower_level = document.querySelector(".dragging");
+        drag_on_zone_top_tower_level = zone.querySelector(".tower-level:last-child");
 
-        if (dragging_disc && drag_on_zone_top_disc) {
-            if (parseInt(dragging_disc.dataset.size) > parseInt(drag_on_zone_top_disc.dataset.size)) {
+        if (dragging_tower_level && drag_on_zone_top_tower_level) {
+            if (parseInt(dragging_tower_level.dataset.size) > parseInt(drag_on_zone_top_tower_level.dataset.size)) {
                 return;
             }
         }
@@ -70,9 +62,9 @@ dropZones.forEach(function (zone) {
 
     zone.addEventListener("drop", function (e) {
         e.preventDefault();
-        const dragging_disc = document.querySelector(".dragging");
-        if (!dragging_disc) return;
-        zone.appendChild(dragging_disc);
+        const dragging_tower_level = document.querySelector(".dragging");
+        if (!dragging_tower_level) return;
+        zone.appendChild(dragging_tower_level);
     });
 });
 
