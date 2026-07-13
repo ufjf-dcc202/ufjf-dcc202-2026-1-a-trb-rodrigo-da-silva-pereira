@@ -1,6 +1,7 @@
 body{
-    padding: none;
-    margin: none;
+    font-family: "Pixelify Sans", sans-serif;
+    padding: 0;
+    margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -11,6 +12,22 @@ body{
     background-size: cover;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+}
+
+#replay-overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    cursor: not-allowed;
+
+    z-index: 1000;
+}
+
+#replay-overlay.active{
+    display: block;
 }
 
 #history-button{
@@ -35,7 +52,7 @@ body{
 
 #history-sidebar{
     box-sizing: border-box;
-    padding: 60px 10px 0 10px;
+    padding: 5px 10px;
 
     position:absolute;
     top: 0;
@@ -58,6 +75,28 @@ body{
     text-align: center;
     font-size: 1.3rem;
     color: white;
+}
+
+#replay-history-button{
+    all: unset;
+
+    padding: 8px 15px;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#replay-history-button:hover{
+    background-color: rgb(221, 221, 221);
+}
+
+#reset-history-button{
+    width: 40px;
+    filter: invert(1);
+    cursor: pointer;
 }
 
 #main-container{
@@ -112,9 +151,32 @@ body{
 
 #move-counter{
     position: absolute;
-    top: 20px;
+    top: 0;
     width: 100%;
+    height: 10%;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2.5vh;
     color: white;
+}
+
+#move-counter img{
+    position: relative;
+    top: -20%;
+    height: 20vh;
+}
+
+#move-counter .text{
+    position: fixed;
+    top: 10vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.history-header{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 30px;
+
+    padding: 10px 0;
 }
