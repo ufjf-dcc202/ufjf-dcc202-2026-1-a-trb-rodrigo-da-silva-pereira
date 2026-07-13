@@ -17,6 +17,19 @@ for (let i = 0; i < levels; i++) {
     init_tower.appendChild(tower_level);
 }
 
+function recordMove(fromTower, toTower, towerLevel) {
+    const historyList = document.getElementById("history-sidebar");
+    const historyRecord = document.createElement("p");
+    historyRecord.classList.add("history-record");
+    historyRecord.textContent = `Move-se o nível de tamanho ${towerLevel.dataset.size} da torre ${fromTower.id.split("-")[1]} para a torre ${toTower.id.split("-")[1]}`;
+    historyList.appendChild(historyRecord);
+    historyList.appendChild(document.createElement("hr"));
+
+    const moveCounter = document.getElementById("move-count-number");
+    const currentCount = parseInt(moveCounter.textContent);
+    moveCounter.textContent = currentCount + 1;
+}
+
 function handleDraggableTowerLevel(tower) {
     const top_tower_level = tower.querySelector(".tower-level:last-child");
     console.log(top_tower_level);
@@ -38,8 +51,12 @@ function handleDraggableTowerLevel(tower) {
         top_tower_level.classList.remove("dragging");
         const new_tower = top_tower_level.parentElement;
         
-        handleDraggableTowerLevel(tower);
-        handleDraggableTowerLevel(new_tower);
+        if (new_tower !== tower) {
+            handleDraggableTowerLevel(tower);
+            handleDraggableTowerLevel(new_tower);
+
+            recordMove(tower, new_tower, top_tower_level);
+        }
     }
 }
 
@@ -53,11 +70,17 @@ dropZones.forEach(function (zone) {
 
         if (dragging_tower_level && drag_on_zone_top_tower_level) {
             if (parseInt(dragging_tower_level.dataset.size) > parseInt(drag_on_zone_top_tower_level.dataset.size)) {
+                zone.style.backgroundColor = "rgba(255, 0, 0, 0.25)";
                 return;
             }
         }
         
+        zone.style.backgroundColor = "rgba(0, 255, 0, 0.25)";
         e.preventDefault();
+    });
+
+    zone.addEventListener("dragleave", function (e) {
+        zone.style.backgroundColor = "";
     });
 
     zone.addEventListener("drop", function (e) {
@@ -65,6 +88,14 @@ dropZones.forEach(function (zone) {
         const dragging_tower_level = document.querySelector(".dragging");
         if (!dragging_tower_level) return;
         zone.appendChild(dragging_tower_level);
+        zone.style.backgroundColor = "";
     });
 });
+
+const historyButton = document.getElementById("history-button");
+historyButton.addEventListener("click", function () {
+    const historySidebar = document.getElementById("history-sidebar");
+    historySidebar.classList.toggle("hidden");
+    historyButton.classList.toggle("active");
+})
 

@@ -8,10 +8,26 @@
     <title>Torre de Hanoi</title>
 </head>
 <body>
+    <img src="sprites/material-symbols--history.svg" alt="History" id="history-button">
+    <div class="hidden" id="history-sidebar">
+        <hr>
+    </div>
+    <div id="move-counter">Movimentos/min: <span id="move-count-number">0</span>/255</div>
     <div id="main-container">
-        <div class="tower drop-zone" id="tower-1"></div>
-        <div class="tower drop-zone" id="tower-2"></div>
-        <div class="tower drop-zone" id="tower-3"></div>
+        <div class="island">
+            <div class="tower drop-zone" id="tower-1"></div>
+            <span class="island-sprite"></span>
+        </div>
+        
+        <div class="island">
+            <div class="tower drop-zone" id="tower-2"></div>
+            <span class="island-sprite"></span>
+        </div>
+
+        <div class="island">
+            <div class="tower drop-zone" id="tower-3"></div>
+            <span class="island-sprite"></span>
+        </div>
     </div>
 </body>
 </html>

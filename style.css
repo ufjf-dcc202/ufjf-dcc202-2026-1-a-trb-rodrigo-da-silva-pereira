@@ -1,3 +1,97 @@
+body{
+    padding: none;
+    margin: none;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+    background-image: url("/sprites/background.png");
+    background-size: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+#history-button{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    filter: invert(1);
+    width: 30px;
+    z-index: 3;
+    cursor: pointer;
+
+    transition: transform 0.2s ease-in-out, left 0.3s ease-in-out;
+}
+
+#history-button:hover{
+    transform: scale(1.1) rotate(-20deg);
+}
+
+#history-button.active{
+    left: 24%;
+}
+
+#history-sidebar{
+    box-sizing: border-box;
+    padding: 60px 10px 0 10px;
+
+    position:absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 28%;
+    background-color: rgb(54, 50, 50);
+    z-index: 2;
+    overflow: auto;
+
+    transition: left 0.3s ease-in-out;
+    /* display: none; */
+}
+
+#history-sidebar.hidden{
+    left: -28%;
+}
+
+.history-record{
+    text-align: center;
+    font-size: 1.3rem;
+    color: white;
+}
+
+#main-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 50px;
+}
+
+.island{
+    width: 20%;
+    height: 70%;
+}
+
+.island-sprite{
+    display: block;
+    height: 50%;
+    width: 100%;
+    background-image: url("/sprites/island.png");    
+    background-size: cover;
+    transform: translateY(-10px);
+}
+
+.tower{
+    height: 100%;
+    border: 4px dashed rgba(255, 0, 0, 0.541);
+    border-bottom: none;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
 .tower-level {
     transform-origin: bottom;
     image-rendering: pixelated;
@@ -6,40 +100,21 @@
     -webkit-user-select: none;
 }
 
-body{
-    padding: none;
-    margin: none;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    background-image: url("/sprites/background.png");
-    background-size: cover;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-}
-
-#main-container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #21252927;
-    width: 80vw;
-    height: 80vh;
-    border-radius: 50px;
-}
-
-.tower{
-    width: 20%;
-    height: 70%;
-    background-color: #7c0e0e34;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-}
-
 .tower-level.top-tower-level{
     cursor: grab;
-    border: 2px solid red;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+.tower-level.top-tower-level:hover{
+    transform: scale(1.03);
+}
+
+#move-counter{
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    color: white;
 }
