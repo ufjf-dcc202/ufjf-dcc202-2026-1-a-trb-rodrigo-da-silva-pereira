@@ -50,6 +50,26 @@ body{
     left: 24%;
 }
 
+#home-button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    cursor: pointer;
+    filter: invert(1);
+    z-index: 3;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+#home-button:hover{
+    transform: scale(1.1);
+}
+
+#home-button img{
+    width: 100%;
+}
+
 #history-sidebar{
     box-sizing: border-box;
     padding: 5px 10px;

@@ -13,6 +13,7 @@
 <body>
     <div id="replay-overlay"></div>
     <img src="sprites/material-symbols--history.svg" alt="History" id="history-button">
+    <a href="/start.html" id="home-button"><img src="sprites/material-symbols--home-rounded.svg" alt="Home"></a>
     <div class="hidden" id="history-sidebar">
         <div class="history-header">
             <img src="sprites/mdi--trash.svg" alt="reset-history-button" id="reset-history-button">
@@ -23,7 +24,9 @@
     <div id="move-counter">
         <img src="sprites/counter-sign.png" alt="counter-wooden-sign">
         <span class="text">movimentos/min: <br>
-            <span id="move-count-number">0</span>/255</span>
+            <span id="move-count-number">0</span>/
+            <span id="min-moves-counter"></span>
+        </span>
     </div>
     <div id="main-container">
         <div class="island">

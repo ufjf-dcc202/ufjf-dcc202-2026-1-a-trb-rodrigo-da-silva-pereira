@@ -1,9 +1,10 @@
+const params = new URLSearchParams(window.location.search);
+
 const init_tower = document.getElementById("tower-1");
 
-const levels = 8;
-const tower_level_width = 90;
-const tower_level_height = 100;
-const tower_level_decrement = 8;
+const levels = parseInt(params.get("dificuldade")) || 8;
+const tower_level_width = 4.6;
+const tower_level_decrement = 0.4;
 
 document.addEventListener("click", function(event){
     const sidebar = document.getElementById("history-sidebar");
@@ -15,6 +16,9 @@ document.addEventListener("click", function(event){
 })
 
 function initializeGame() {
+    const minMoves = document.getElementById("min-moves-counter");
+    minMoves.textContent = `${2**levels - 1}`;
+
     for (let i = 0; i < levels; i++) {
         const tower_level = document.createElement("img");
         tower_level.classList.add("tower-level");
@@ -22,7 +26,7 @@ function initializeGame() {
         tower_level.alt = "Tower Level";
 
         tower_level.dataset.size = levels - i;
-        tower_level.style.width = `${tower_level_width - i * tower_level_decrement}px`;
+        tower_level.style.width = `${tower_level_width - i * tower_level_decrement}vw`;
 
         init_tower.appendChild(tower_level);
     }
@@ -44,7 +48,7 @@ function recordMove(fromTower, toTower, towerLevel) {
     historyRecord.dataset.toTower = parsedToTower;
     historyRecord.dataset.size = parsedSize;
 
-    historyRecord.textContent = `Move-se o nível de tamanho ${parsedSize} da torre ${parsedFromTower} para a torre ${parsedToTower}`;
+    historyRecord.textContent = `Nível ${parsedSize}: torre ${parsedFromTower} -> ${parsedToTower}`;
     
     historyList.appendChild(historyRecord);
     historyList.appendChild(document.createElement("hr"));
@@ -170,11 +174,14 @@ replayButton.addEventListener("click", function () {
 
             if (towerLevel) {
                 toTower.appendChild(towerLevel);
-                handleDraggableTowerLevel(fromTower);
-                handleDraggableTowerLevel(toTower);
             }
 
             if (index == historyRecords.length -1){
+                const towers = document.querySelectorAll(".tower");
+                towers.forEach(tower => {
+                    handleDraggableTowerLevel(tower);
+                })
+
                 replayOverlay.classList.remove("active")
             }
         }, index * 1000)
