@@ -4,7 +4,9 @@ const init_tower = document.getElementById("tower-1");
 
 const levels = parseInt(params.get("dificuldade")) || 8;
 const tower_level_width = 4.6;
-const tower_level_decrement = 0.4;
+const tower_level_decrement = 0.3;
+
+let haveWon = false;
 
 document.addEventListener("click", function(event){
     const sidebar = document.getElementById("history-sidebar");
@@ -22,8 +24,10 @@ function initializeGame() {
     for (let i = 0; i < levels; i++) {
         const tower_level = document.createElement("img");
         tower_level.classList.add("tower-level");
-        tower_level.src = "/sprites/tower-level.png";
+        tower_level.src = "/sprites/tower-level2.png";
         tower_level.alt = "Tower Level";
+
+        tower_level.style.zIndex = levels-i
 
         tower_level.dataset.size = levels - i;
         tower_level.style.width = `${tower_level_width - i * tower_level_decrement}vw`;
@@ -35,32 +39,46 @@ function initializeGame() {
 
 initializeGame();
 
+function winCheck(tower){
+    const firstTower = document.getElementById("tower-1");
+    if (tower === firstTower)
+        return;
+
+    if (tower.childElementCount == levels && !haveWon){
+        alert("Parabéns!! Você venceu!!");
+        haveWon = true;
+    }
+}
+
 function recordMove(fromTower, toTower, towerLevel) {
-    const parsedSize = parseInt(towerLevel.dataset.size);
-    const parsedFromTower = parseInt(fromTower.id.split("-")[1]);
-    const parsedToTower = parseInt(toTower.id.split("-")[1]);
+    if (!haveWon){
+        const parsedSize = parseInt(towerLevel.dataset.size);
+        const parsedFromTower = parseInt(fromTower.id.split("-")[1]);
+        const parsedToTower = parseInt(toTower.id.split("-")[1]);
 
-    const historyList = document.getElementById("history-sidebar");
-    const historyRecord = document.createElement("p");
-    historyRecord.classList.add("history-record");
+        const historyList = document.getElementById("history-sidebar");
+        const historyRecord = document.createElement("p");
+        historyRecord.classList.add("history-record");
 
-    historyRecord.dataset.fromTower = parsedFromTower;
-    historyRecord.dataset.toTower = parsedToTower;
-    historyRecord.dataset.size = parsedSize;
+        historyRecord.dataset.fromTower = parsedFromTower;
+        historyRecord.dataset.toTower = parsedToTower;
+        historyRecord.dataset.size = parsedSize;
 
-    historyRecord.textContent = `Nível ${parsedSize}: torre ${parsedFromTower} -> ${parsedToTower}`;
-    
-    historyList.appendChild(historyRecord);
-    historyList.appendChild(document.createElement("hr"));
+        historyRecord.textContent = `Nível ${parsedSize}: torre ${parsedFromTower} -> ${parsedToTower}`;
+        
+        historyList.appendChild(historyRecord);
+        historyList.appendChild(document.createElement("hr"));
 
-    const moveCounter = document.getElementById("move-count-number");
-    const currentCount = parseInt(moveCounter.textContent);
-    moveCounter.textContent = currentCount + 1;
+        const moveCounter = document.getElementById("move-count-number");
+        const currentCount = parseInt(moveCounter.textContent);
+        moveCounter.textContent = currentCount + 1;
+    }
+
+    winCheck(toTower);
 }
 
 function handleDraggableTowerLevel(tower) {
     const top_tower_level = tower.querySelector(".tower-level:last-child");
-    console.log(top_tower_level);
     if (!top_tower_level) return;
 
     tower.querySelectorAll(".tower-level:not(:last-child)").forEach(tower_level => {
@@ -167,10 +185,11 @@ replayButton.addEventListener("click", function () {
         setTimeout(() => {
             const fromTowerId = `tower-${record.dataset.fromTower}`;
             const toTowerId = `tower-${record.dataset.toTower}`;
+            const towerLevelSize = record.dataset.size;
 
             const fromTower = document.getElementById(fromTowerId);
             const toTower = document.getElementById(toTowerId);
-            const towerLevel = fromTower.querySelector(`.tower-level[data-size="${record.dataset.size}"]`);
+            const towerLevel = fromTower.querySelector(`.tower-level[data-size="${towerLevelSize}"]`);
 
             if (towerLevel) {
                 toTower.appendChild(towerLevel);
@@ -184,7 +203,7 @@ replayButton.addEventListener("click", function () {
 
                 replayOverlay.classList.remove("active")
             }
-        }, index * 1000)
+        }, (index+1) * 1000)
     });
     
 });

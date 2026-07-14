@@ -16,3 +16,26 @@ startBtn.addEventListener("click", function(){
 
     window.location.href = `index.html?dificuldade=${difficulty}`;
 })
+
+const increaseDifficulty = document.getElementById("up-difficulty-btn");
+const decreaseDifficulty = document.getElementById("down-difficulty-btn");
+
+increaseDifficulty.addEventListener("click", function(){
+    const difficultyInput = document.getElementById("difficulty");
+    const difficultyValue = parseInt(difficultyInput.value); 
+
+    if (difficultyValue == 10){
+        return;
+    }
+    difficultyInput.value++;
+})
+
+decreaseDifficulty.addEventListener("click", function(){
+    const difficultyInput = document.getElementById("difficulty");
+    const difficultyValue = parseInt(difficultyInput.value); 
+
+    if (difficultyValue == 3){
+        return;
+    }
+    difficultyInput.value--;
+})
