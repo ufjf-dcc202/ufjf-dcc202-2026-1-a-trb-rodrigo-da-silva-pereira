@@ -158,6 +158,7 @@ function resetGame(cleanHistory = true) {
 
         const moveCounter = document.getElementById("move-count-number");
         moveCounter.textContent = 0;
+        haveWon = false;
     }
 
     initializeGame();
