@@ -6,7 +6,7 @@ body{
     margin: 0;
     font-family: "Pixelify Sans", sans-serif;
 
-    background-image: url(/sprites/background.png);
+    background-image: url(sprites/background.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: center;
@@ -64,7 +64,7 @@ body{
     height: 20px;
     cursor: pointer;
 
-    background-image: url(/sprites/up-arrowhead.png);
+    background-image: url(sprites/up-arrowhead.png);
     background-repeat: no-repeat;
     background-size: contain;
 
