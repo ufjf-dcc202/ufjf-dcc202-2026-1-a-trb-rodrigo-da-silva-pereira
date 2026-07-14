@@ -24,7 +24,7 @@ function initializeGame() {
     for (let i = 0; i < levels; i++) {
         const tower_level = document.createElement("img");
         tower_level.classList.add("tower-level");
-        tower_level.src = "/sprites/tower-level2.png";
+        tower_level.src = "sprites/tower-level2.png";
         tower_level.alt = "Tower Level";
 
         tower_level.style.zIndex = levels-i
