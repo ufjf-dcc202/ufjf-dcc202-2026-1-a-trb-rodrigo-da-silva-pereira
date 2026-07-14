@@ -14,7 +14,7 @@ startBtn.addEventListener("click", function(){
         return;
     }
 
-    window.location.href = `index.html?dificuldade=${difficulty}`;
+    window.location.href = `game.html?dificuldade=${difficulty}`;
 })
 
 const increaseDifficulty = document.getElementById("up-difficulty-btn");

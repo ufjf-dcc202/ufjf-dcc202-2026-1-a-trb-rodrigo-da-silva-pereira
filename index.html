@@ -4,46 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="sprites/icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
-    <script src="main.js" defer></script>
-    <title>Torre de Hanoi</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="home.js" defer></script>
+    <title>Torre de Hanoi - Home</title>
 </head>
 <body>
-    <div id="replay-overlay"></div>
-    <img src="sprites/material-symbols--history.svg" alt="History" id="history-button">
-    <a href="/start.html" id="home-button"><img src="sprites/material-symbols--home-rounded.svg" alt="Home"></a>
-    <div class="hidden" id="history-sidebar">
-        <div class="history-header">
-            <img src="sprites/mdi--trash.svg" alt="reset-history-button" id="reset-history-button">
-            <button id="replay-history-button">replay</button>
+    <div class="start-menu">
+        <label for="difficulty">Dificuldade</label>
+        <div id="difficulty-container">
+            <input type="number" id="difficulty" min="3" max="10" value="8" readonly>
+            <div id="change-difficulty-btns">
+                <button id="up-difficulty-btn"></button>
+                <button id="down-difficulty-btn"></button>
+            </div>
         </div>
-        <hr id="first-history-separator">
-    </div>
-    <div id="move-counter">
-        <img src="sprites/counter-sign.png" alt="counter-wooden-sign">
-        <span class="text">movimentos/min: <br>
-            <span id="move-count-number">0</span>/
-            <span id="min-moves-counter"></span>
-        </span>
-    </div>
-    <div id="main-container">
-        <div class="island">
-            <div class="tower drop-zone" id="tower-1"></div>
-            <span class="island-sprite"></span>
-        </div>
-        
-        <div class="island">
-            <div class="tower drop-zone" id="tower-2"></div>
-            <span class="island-sprite"></span>
-        </div>
-
-        <div class="island">
-            <div class="tower drop-zone" id="tower-3"></div>
-            <span class="island-sprite"></span>
-        </div>
+        <button id="start-btn">Começar</button> 
     </div>
 </body>
 </html>
